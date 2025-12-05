@@ -1,0 +1,11 @@
+veri-clang
+veri-clang-fast
+veri-clang++
+veri-clang-fast++
+veri-llvm-pass.so
+veri-llvm-pass.a
+veri-llvm-pass.o
+*.a
+*.so
+*.o
+*.ll

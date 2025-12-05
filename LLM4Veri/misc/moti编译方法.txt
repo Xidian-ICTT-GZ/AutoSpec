@@ -1,0 +1,7 @@
+?安装solidity代码插件
+1. sudo pip install Pygments
+2. sudo pip install pygments-lexer-solidity
+3. pdflatex -shell-escape ***.tex
+4. open ***.pdf
+
+注：highlight有错，我拿windows下的pdflatex试成功的。

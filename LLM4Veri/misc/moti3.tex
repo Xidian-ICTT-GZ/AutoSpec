@@ -1,0 +1,19 @@
+\documentclass[varwidth=12.85cm]{standalone}
+\usepackage{minted}
+\begin{document}
+\definecolor{blue}{rgb}{0,0,255}
+\setminted[c]{fontsize=\footnotesize,xleftmargin=13pt,numbersep=5pt,linenos,escapeinside=@@,breaklines,highlightlines={}}
+\begin{minted}{c}
+void bubbleSort(int *array, int n) {
+    int i, j;
+    for(i = n - 1; i > 0; i--) {
+        /* @ >>> INFILL <<< */
+        for(j = 0; j < i; j++) {
+            if (array[j] > array[j+1]) {
+                swap(&array[j], &array[j+1]);
+            }
+        }
+    }
+}
+\end{minted}
+\end{document}

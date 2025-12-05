@@ -1,0 +1,83 @@
+# models_config.yaml
+# 多模型配置模板和映射文件
+
+# =================================================================
+# A. ConfigTemplates: 定义配置基础模板
+# 这些模板包含共享的平台信息、API URL和认证信息
+# =================================================================
+ConfigTemplates:
+  # ID 1: OpenAI 平台基础配置
+  OpenAI_Config:
+    platform: "OpenAI"
+    # 指定从哪个环境变量读取 API Key。请在运行环境设置此变量。
+    api_key_env: "OPENAI_API_KEY"
+    base_url: "https://api.openai-proxy.org/v1"
+    timeout: 300
+
+  # ID 2: 阿里云平台基础配置
+  aliyun_Config:
+    platform: "aliyun"
+    api_key_env: "aliyun_API_KEY"
+    base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+    timeout: 300
+    # timeout是指单次query拿到结果的最长等待时间，单位秒
+
+  # ID 3：火山平台基础配置
+  volcano_Config:
+    platform: "volcano"
+    api_key_env: "volcano_API_KEY"
+    base_url: "https://ark.cn-beijing.volces.com/api/v3"
+    timeout: 120
+
+  # ID 4: Deepseek平台基础配置
+  deepseek_Config:
+    platform: "deepseek"
+    api_key_env: "deepseek_API_KEY"
+    base_url: "https://api.deepseek.com"
+    timeout: 120
+
+# =================================================================
+# B. ModelMap: 将用户传入的 model_name 映射到模板，并允许参数覆盖
+# =================================================================
+ModelMap:
+  "qwen-turbo":
+    template_id: "aliyun_Config"
+  
+  "qwen3-235b-a22b-instruct-2507":
+    template_id: "aliyun_Config"
+  
+  "qwen3-235b-a22b-thinking-2507":
+    template_id: "aliyun_Config"
+  
+  "deepseek-v3.1":
+    template_id: "aliyun_Config"
+
+  "deepseek-v3.2-exp":
+    template_id: "aliyun_Config"
+
+  "deepseek-r1-0528":
+    template_id: "aliyun_Config"
+  
+  "Moonshot-Kimi-K2-Instruct":
+    template_id: "aliyun_Config"
+
+  "deepseek-v3-1-terminus":
+    template_id: "volcano_Config"
+
+  "deepseek-chat":
+    template_id: "deepseek_Config"
+
+  "gpt-3.5-turbo":
+    template_id: "OpenAI_Config"
+  
+  "gpt-4o":
+    template_id: "OpenAI_Config"
+
+  "gemini-2.5-pro":
+    template_id: "OpenAI_Config"
+
+  "claude-3-7-sonnet-latest":
+    template_id: "OpenAI_Config"
+
+  "claude-sonnet-4-20250514":
+    template_id: "OpenAI_Config"

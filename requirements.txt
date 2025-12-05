@@ -1,0 +1,10 @@
+gradio==5.20.1
+openai==1.82.1
+tiktoken==0.9.0
+langchain==0.3.20
+pymilvus==2.5.5
+pymilvus.model==0.3.1
+replicate==1.0.4
+human_eval==1.0.3
+clarifai_grpc==11.6.6
+cryptography==45.0.3

@@ -1,0 +1,37 @@
+\documentclass[varwidth=12.85cm]{standalone}
+\usepackage{minted}
+\begin{document}
+\definecolor{blue}{rgb}{0,0,255}
+\setminted[c]{fontsize=\footnotesize,xleftmargin=13pt,numbersep=5pt,linenos,escapeinside=@@,breaklines,highlightlines={}}
+\begin{minted}{c}
+#include <limits.h>
+
+/* 1. FUNC CONTRACT */
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+/* 4. FUNC CONTRACT */
+void bubbleSort(int *array, int n) {
+    int i, j;
+    /* 3. LOOP INVARIANT */
+    for(i = n - 1; i > 0; i--) {
+        /* 2. LOOP INVARIANT */
+        for(j = 0; j < i; j++) {
+            if (array[j] > array[j+1]) {
+                swap(&array[j], &array[j+1]);
+            }
+        }
+    }
+}
+
+/* 5. FUNC CONTRACT */
+void main() {
+    int array[5] = {5, 4, 3, 2, 1};
+    bubbleSort(array, 5);
+    //@ assert \forall int i; 0 < i < 5 ==> array[i-1] <= array[i];
+}
+\end{minted}
+\end{document}

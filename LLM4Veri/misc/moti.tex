@@ -1,0 +1,55 @@
+\documentclass[varwidth=12.85cm]{standalone}
+\usepackage{minted}
+\begin{document}
+\definecolor{blue}{rgb}{0,0,255}
+\setminted[c]{fontsize=\footnotesize,xleftmargin=13pt,numbersep=5pt,linenos,escapeinside=@@,breaklines,highlightlines={}}
+\begin{minted}{c}
+#include <limits.h>
+
+/*@
+requires \valid(a) && \valid(b);
+ensures *a == \old(*b);
+ensures *b == \old(*a);
+assigns *a,*b;
+*/
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+/*@ 
+requires \valid(array+(0..n-1));
+requires 0 < n < INT_MAX;
+ensures \forall integer i; 0 <= i < n-1 ==> array[i] <= array[i+1];
+*/
+void bubbleSort(int *array, int n) {
+    int i, j;
+    /*@
+    loop invariant 0 <= i < n;
+    loop invariant \forall integer k; i<=k<n-1 ==> array[k]<=array[k+1];
+    loop invariant \forall integer k; 0<=k<i+1<=n-1 ==> array[k]<=array[i+1];
+    loop assigns i, j, array[0..n-1];
+    */
+    for(i = n - 1; i > 0; i--) {
+        /*@
+        loop invariant 0 <= j <= i < n;
+        loop invariant \forall integer k; 0<=k<=j ==> array[k]<=array[j];
+        loop invariant \forall integer k; 0<=k<i+1<=n-1 ==> array[k]<=array[i+1];
+        loop assigns j, array[0..i];
+        */
+        for(j = 0; j < i; j++) {
+            if (array[j] > array[j+1]) {
+                swap(&array[j], &array[j+1]);
+            }
+        }
+    }
+}
+
+void main() {
+    int array[5] = {5, 4, 3, 2, 1};
+    bubbleSort(array, 5);
+    //@ assert \forall int i; 0 < i < 5 ==> array[i-1] <= array[i];
+}
+\end{minted}
+\end{document}

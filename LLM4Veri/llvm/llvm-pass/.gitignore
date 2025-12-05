@@ -1,0 +1,14 @@
+build
+p4-clang
+p4-clang-fast
+p4-clang++
+p4-clang-fast++
+PFunc.o
+AvatarFunction.o
+p4-llvm-pass.so
+p4-llvm-pass.a
+p4-llvm-pass.o
+*.a
+*.so
+*.o
+*.ll
