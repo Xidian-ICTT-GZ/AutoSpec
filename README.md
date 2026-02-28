@@ -20,7 +20,7 @@ ACSLAGENT is a neuro-symbolic tool that automates formal specification writing f
 The tool operates through five main stages: static analysis, neural specification generation, formal verification, iterative repair, and optional termination analysis.
 
 <p align="center">
-  <img src="fig/overview.png" width="80%">
+  <img src="fig/overview_new.png" width="80%">
 </p>
 
 ---
