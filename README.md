@@ -1,29 +1,75 @@
-## Introduction
+# ACSLAGENT: LLM-Driven Neuro-Symbolic Program Specification Synthesis
 
-Formal verification provides rigorous guarantees for software correctness but often requires substantial manual effort to construct formal specifications (e.g., ACSL annotations for C programs). While recent advances in Large Language Models (LLMs) have shown promise in automating this process, existing approaches are often limited to partial correctness on isolated code snippets, struggling with complex, multi-file projects and infinite loops.
+ACSLAGENT is a neuro-symbolic tool that automates formal specification writing for C programs by reframing it as constrained structured synthesis. It uses Large Language Models (LLMs) to generate candidate specifications (contracts, loop invariants, and ranking functions) while employing the Frama-C/WP symbolic verifier as a deterministic critic to ensure correctness.
 
-AutoSpec is an LLM-powered tool designed to bridge this gap. Building on our prior research prototype, AutoSpec delivers a practical, fully automated pipeline that transforms unannotated C code into formally verified software. It significantly extends the foundational capabilities by introducing **total correctness** proofs via termination analysis, a robust **model ensemble strategy** to mitigate LLM hallucinations, and a novel **inter-modular verification** workflow for handling project-level dependencies. Distributed as a zero-configuration **Docker container**, AutoSpec lowers the barrier to entry for rigorous software verification.
+## Key Features
 
-### Tool Overview
+**Neuro-Symbolic Loop**: Integrates neural generation with symbolic verification to produce proof-ready annotations.
+**Proof-Aware Decomposition**: Constructs an extended call graph to synthesize specifications bottom-up, reducing context length and focusing on proof-relevant code slices.
+**Iterative Repair**: Automatically refines failing specifications using verifier feedback without restarting from scratch.
+**Total Correctness Support**: Generates ranking functions (loop variants) to upgrade proofs from partial to total correctness.
+**Inter-Modular Verification**: Analyzes cross-file dependencies and promotes verified contracts to header interfaces for modular verification.
+**Model Ensemble**: Supports a replaceable LLM backend via a unified interface, allowing queries across multiple models (e.g., Gemini, GPT, DeepSeek) for increased robustness.
+<p align="center">
+  <img src="fig/comparsion.png" width="50%">
+</p>
 
-![overview](fig/overview.png)
+---
+## Workflow
 
-----------
+The tool operates through five main stages: static analysis, neural specification generation, formal verification, iterative repair, and optional termination analysis.
+
+<p align="center">
+  <img src="fig/overview.png" width="80%">
+</p>
+
+---
+
+## Example
+
+ACSLAGENT transforms unannotated C code into verifier-accepted annotated programs. Below is an example of an industrial C program from an aerospace control system annotated with synthesized ACSL specifications.
+
+<p align="center">
+  <img src="fig/case.png" width="80%">
+</p>
+
+---
+
+## Installation & Resources
+
+
+**Full Experimental Results**: [https://huggingface.co/spaces/saki222/experient_result_full](https://huggingface.co/spaces/saki222/experient_result_full)
+**Demonstration Video**: [https://youtu.be/rwA2kyzljac](https://youtu.be/rwA2kyzljac) 
+
+---
+
+## Evaluation
+
+ACSLAGENT achieves a state-of-the-art verification success rate of 91.05% (pass@5) across diverse benchmarks including SyGuS, SV-COMP, and real-world industrial components.
+
+<p align="center">
+  <img src="fig/compare_sota.png" width="32%">
+  <img src="fig/time_boxplot.png" width="29%">
+  <img src="fig/token_cost.png" width="27%">
+</p>
+
+---
+
 
 ## Install and Deployment
 
 ### docker image downloads
 ```sh
-docker pull junjiehu1905/autospec:latest
+docker pull junjiehu1905/acslagent:latest
 docker pull junjiehu1905/termination_analysis:latest
 ```
 
 ### clone this repo
 ```sh
-git clone git@github.com:Xidian-ICTT-GZ/AutoSpec.git
+https://anonymous.4open.science/r/ACSLAgent-FB4C
 ```
 
-### run docker image and mount local files
+### run docker image and mount local files（may take a while at the first time）
 ```sh
 docker run -it --rm -v $(pwd):/app docker_name /bin/bash
 ```
@@ -49,9 +95,21 @@ veri-clang --version
 there is a models_config.yaml at config/ filefolder, and there are some examples help u to set the env.
 further, you need to set your API_KEY to the ~/.bashrc
 
+### Config
+The model config file is at config/models_config.yaml file.
+you need to set a config template at A.ConfigTemplates including:template name, platform, api_key_env, base_url and timeout.
+
+Then, go to B.ModelMap set your model name and its corresponding template name you've just written. 
+
 ### set LLM API_KEY
 ```sh
 echo 'export OPENAI_API_KEY=""' >> ~/.bashrc
+source ~/.bashrc
+```
+or
+```sh
+vim ~/.bashrc
+export OPENAI_API_KEY="xxx"
 source ~/.bashrc
 ```
 
@@ -66,7 +124,7 @@ Header files (.h) do not need to be specified; they are automatically discovered
 Users select the LLM backend models using the -m parameter.
 
 ```sh
-python3 main.py -f file1.c,file2.c,... -o output-dir -m model1,model2,...
+python3 main.py -f file1.c -o output-dir -m model_name
 ```
 
 
@@ -94,3 +152,4 @@ Try it yourself: The source code for this demo is located in LLM4Veri/dataset/in
 python3 inter-modular_run.py -i main.c x509_utils.c x509_utils.h -m <model_name>
 ```
 (Replace <model_name> with your target LLM, e.g., gpt-4.)
+

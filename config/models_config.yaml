@@ -14,7 +14,7 @@ ConfigTemplates:
     base_url: "https://api.openai-proxy.org/v1"
     timeout: 300
 
-  # ID 2: 阿里云平台基础配置
+  # ID 2: aliyun平台基础配置
   aliyun_Config:
     platform: "aliyun"
     api_key_env: "aliyun_API_KEY"
@@ -22,7 +22,7 @@ ConfigTemplates:
     timeout: 300
     # timeout是指单次query拿到结果的最长等待时间，单位秒
 
-  # ID 3：火山平台基础配置
+  # ID 3：volcano平台基础配置
   volcano_Config:
     platform: "volcano"
     api_key_env: "volcano_API_KEY"
@@ -74,6 +74,9 @@ ModelMap:
     template_id: "OpenAI_Config"
 
   "gemini-2.5-pro":
+    template_id: "OpenAI_Config"
+
+  "gemini-2.5-flash":
     template_id: "OpenAI_Config"
 
   "claude-3-7-sonnet-latest":
