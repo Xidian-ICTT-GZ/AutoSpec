@@ -1,6 +1,6 @@
-# ACSLAGENT: LLM-Driven Neuro-Symbolic Program Specification Synthesis
+# AutoSpec+: LLM-Driven Neuro-Symbolic Program Specification Synthesis
 
-ACSLAGENT is a neuro-symbolic tool that automates formal specification writing for C programs by reframing it as constrained structured synthesis. It uses Large Language Models (LLMs) to generate candidate specifications (contracts, loop invariants, and ranking functions) while employing the Frama-C/WP symbolic verifier as a deterministic critic to ensure correctness.
+AutoSpec+ is a neuro-symbolic tool that automates formal specification writing for C programs by reframing it as constrained structured synthesis. It uses Large Language Models (LLMs) to generate candidate specifications (contracts, loop invariants, and ranking functions) while employing the Frama-C/WP symbolic verifier as a deterministic critic to ensure correctness.
 
 ## Key Features
 
@@ -27,7 +27,7 @@ The tool operates through five main stages: static analysis, neural specificatio
 
 ## Example
 
-ACSLAGENT transforms unannotated C code into verifier-accepted annotated programs. Below is an example of an industrial C program from an aerospace control system annotated with synthesized ACSL specifications.
+AutoSpec+ transforms unannotated C code into verifier-accepted annotated programs. Below is an example of an industrial C program from an aerospace control system annotated with synthesized ACSL specifications.
 
 <p align="center">
   <img src="fig/case.png" width="80%">
@@ -46,7 +46,7 @@ ACSLAGENT transforms unannotated C code into verifier-accepted annotated program
 
 ## Evaluation
 
-ACSLAGENT achieves a state-of-the-art verification success rate of 91.05% (pass@5) across diverse benchmarks including SyGuS, SV-COMP, and real-world industrial components.
+AutoSpec+ achieves a state-of-the-art verification success rate of 91.05% (pass@5) across diverse benchmarks including SyGuS, SV-COMP, and real-world industrial components.
 
 <p align="center">
   <img src="fig/compare_sota.png" width="32%">
