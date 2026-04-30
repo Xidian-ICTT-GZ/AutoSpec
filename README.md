@@ -39,6 +39,7 @@ ACSLAGENT transforms unannotated C code into verifier-accepted annotated program
 
 
 **Full Experimental Results**: [https://huggingface.co/spaces/saki222/experient_result_full](https://huggingface.co/spaces/saki222/experient_result_full)
+
 **Demonstration Video**: [https://youtu.be/rwA2kyzljac](https://youtu.be/rwA2kyzljac) 
 
 ---
@@ -66,7 +67,7 @@ docker pull junjiehu1905/termination_analysis:latest
 
 ### clone this repo
 ```sh
-https://anonymous.4open.science/r/ACSLAgent-FB4C
+git clone git@github.com:Xidian-ICTT-GZ/AutoSpec.git
 ```
 
 ### run docker image and mount local files（may take a while at the first time）
